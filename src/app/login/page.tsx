@@ -2,7 +2,16 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import { Bus, ArrowLeft } from "lucide-react";
+import {
+  Box,
+  Button,
+  Paper,
+  Stack,
+  TextField,
+  Typography,
+} from "@mui/material";
+import DirectionsBusIcon from "@mui/icons-material/DirectionsBus";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 export default function LoginPage() {
   const [userId, setUserId] = useState("");
@@ -13,75 +22,111 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen w-full bg-[#0F172A] text-[#F8FAFC] flex flex-col items-center justify-center p-4">
-      <div className="w-full max-w-md bg-[#1E293B] rounded-2xl border border-slate-700/80 p-8 shadow-2xl">
-        <Link
+    <Box
+      sx={{
+        minHeight: "100vh",
+        width: "100%",
+        bgcolor: "background.default",
+        color: "text.primary",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        p: 2,
+      }}
+    >
+      <Paper
+        elevation={12}
+        sx={{
+          width: "100%",
+          maxWidth: 420,
+          p: 4,
+          borderRadius: 4,
+          bgcolor: "background.paper",
+          border: "1px solid rgba(148, 163, 184, 0.16)",
+        }}
+      >
+        <Button
+          component={Link}
           href="/"
-          className="inline-flex items-center gap-1.5 text-xs font-medium text-slate-400 hover:text-white mb-6 transition"
+          startIcon={<ArrowBackIcon fontSize="small" />}
+          sx={{
+            color: "text.secondary",
+            p: 0,
+            mb: 3,
+            minWidth: 0,
+            "&:hover": { color: "#fff", bgcolor: "transparent" },
+          }}
         >
-          <ArrowLeft className="w-3.5 h-3.5" />
-          <span>Back to Home</span>
-        </Link>
+          Back to Home
+        </Button>
 
-        <div className="flex items-center gap-2.5 mb-6">
-          <div className="w-9 h-9 rounded-xl bg-teal-500/15 border border-teal-500/30 text-teal-400 flex items-center justify-center">
-            <Bus className="w-4 h-4" />
-          </div>
-          <span className="font-bold text-lg text-white">
-            Uni<span className="text-teal-400">Transit</span>
-          </span>
-        </div>
+        <Stack direction="row" spacing={1.5} alignItems="center" sx={{ mb: 3 }}>
+          <Box
+            sx={{
+              width: 36,
+              height: 36,
+              borderRadius: 2,
+              bgcolor: "rgba(20, 184, 166, 0.15)",
+              border: "1px solid rgba(20, 184, 166, 0.3)",
+              color: "primary.light",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <DirectionsBusIcon fontSize="small" />
+          </Box>
+          <Typography variant="h6" sx={{ fontWeight: 700, color: "#fff" }}>
+            Uni
+            <Box component="span" sx={{ color: "primary.light" }}>
+              Transit
+            </Box>
+          </Typography>
+        </Stack>
 
-        <h1 className="text-2xl font-bold text-white">Sign In</h1>
-        <p className="text-sm text-slate-400 mt-1 mb-6">
+        <Typography variant="h5" sx={{ color: "#fff", mb: 0.5 }}>
+          Sign In
+        </Typography>
+        <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }}>
           Unified login for Students, Drivers, and Admins.
-        </p>
+        </Typography>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <label
-              htmlFor="loginId"
-              className="block text-xs font-medium text-slate-300 mb-1.5"
-            >
-              Campus ID or Email
-            </label>
-            <input
-              id="loginId"
-              type="text"
+        <Box component="form" onSubmit={handleSubmit}>
+          <Stack spacing={2.5}>
+            <TextField
+              label="Campus ID or Email"
+              placeholder="Enter your ID or Email"
               value={userId}
               onChange={(e) => setUserId(e.target.value)}
-              placeholder="Enter your ID or Email"
-              className="w-full px-4 py-3 rounded-xl bg-slate-900/90 border border-slate-700 text-sm text-white placeholder:text-slate-500 focus:outline-none focus:border-teal-400 transition"
+              fullWidth
               required
+              slotProps={{ inputLabel: { shrink: true } }}
             />
-          </div>
 
-          <div>
-            <label
-              htmlFor="loginPassword"
-              className="block text-xs font-medium text-slate-300 mb-1.5"
-            >
-              Password
-            </label>
-            <input
-              id="loginPassword"
+            <TextField
+              label="Password"
               type="password"
+              placeholder="••••••••"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              placeholder="••••••••"
-              className="w-full px-4 py-3 rounded-xl bg-slate-900/90 border border-slate-700 text-sm text-white placeholder:text-slate-500 focus:outline-none focus:border-teal-400 transition"
+              fullWidth
               required
+              slotProps={{ inputLabel: { shrink: true } }}
             />
-          </div>
 
-          <button
-            type="submit"
-            className="w-full py-3 px-5 rounded-xl bg-teal-500 text-slate-950 text-sm font-semibold hover:bg-teal-400 transition mt-2"
-          >
-            Sign In
-          </button>
-        </form>
-      </div>
-    </div>
+            <Button
+              type="submit"
+              variant="contained"
+              color="primary"
+              size="large"
+              fullWidth
+              sx={{ py: 1.4, borderRadius: 3 }}
+            >
+              Sign In
+            </Button>
+          </Stack>
+        </Box>
+      </Paper>
+    </Box>
   );
 }

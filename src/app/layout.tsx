@@ -1,8 +1,12 @@
 import type { Metadata } from "next";
+import { AppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter";
+import { ThemeProvider } from "@mui/material/styles";
+import CssBaseline from "@mui/material/CssBaseline";
+import theme from "@/theme";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "UniTransit — Bus Route & Seat Allotment",
+  title: "UniTransit — College Bus Route & Seat Allotment",
   description: "College Bus Route and Seat Allotment System",
 };
 
@@ -13,8 +17,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="antialiased selection:bg-slate-900 selection:text-white">
-        {children}
+      <body>
+        <AppRouterCacheProvider>
+          <ThemeProvider theme={theme}>
+            <CssBaseline />
+            {children}
+          </ThemeProvider>
+        </AppRouterCacheProvider>
       </body>
     </html>
   );
